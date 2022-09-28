@@ -2,7 +2,7 @@ const btn = document.querySelector(".talk");
 const content = document.querySelector(".content");
 var voices = speechSynthesis.getVoices();
 function speak(sentence) {
-  document.getElementById("interface").src = "assets/img/katrina.gif";
+  document.getElementById("interface").src = "assets/img/katrina-2.gif";
 
   const text_speak = new SpeechSynthesisUtterance(sentence);
 
@@ -12,7 +12,7 @@ function speak(sentence) {
   text_speak.voice = voices[3];
   window.speechSynthesis.speak(text_speak);
   text_speak.addEventListener("end", function () {
-    document.getElementById("interface").src = "assets/img/katrina.png";
+    document.getElementById("interface").src = "assets/img/katrina-2.png";
   });
 }
 
@@ -35,7 +35,7 @@ window.addEventListener("load", () => {
   speak("Activating Katrina");
   speak("Going online");
   wishMe();
-  document.getElementById("interface").src = "assets/img/katrina.png";
+  document.getElementById("interface").src = "assets/img/katrina-2.png";
 });
 
 const magic_word = "katrina";
@@ -52,7 +52,8 @@ recognition2.continuous = true;
 recognition2.onresult = (event) => {
   var current = event.resultIndex;
   var transcript = event.results[current][0].transcript;
-  content.textContent = transcript.replace("Katrina", "");
+  content.innerHTML += contentStyle("You",transcript);
+  scrollSmoothToBottom('content-container');
   if (transcript.toLowerCase().includes(magic_word)) {
     
     speakThis(transcript.toLowerCase().replace(magic_word, ""));
@@ -119,7 +120,7 @@ function detectSilence(
 
 
 function speakThis(message) {
-  document.getElementById("interface").src = "assets/img/katrina.gif";
+  document.getElementById("interface").src = "assets/img/katrina-2.gif";
   const speech = new SpeechSynthesisUtterance();
   var voices = speechSynthesis.getVoices();
   speech.voice = voices[3];
@@ -237,7 +238,20 @@ function speakThis(message) {
   speech.rate = 1;
 
   window.speechSynthesis.speak(speech);
+  content.innerHTML += contentStyle("Katrina", speech.text);
+  scrollSmoothToBottom('content-container');
   speech.addEventListener("end", function () {
-    document.getElementById("interface").src = "assets/img/katrina.png";
+    document.getElementById("interface").src = "assets/img/katrina-2.png";
   });
+}
+
+function contentStyle(x, str){
+  return '<br/><b style="color: #fff;">'+x+':</b> <i>'+str+'</i>';
+}
+
+function scrollSmoothToBottom(id){
+  const element = $(`#${id}`);
+  element.animate({
+     scrollTop: element.prop("scrollHeight")
+  }, 500);
 }
