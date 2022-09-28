@@ -131,9 +131,15 @@ function speakThis(message) {
     speech.text = finalText;
   } else if (message.includes("name") || message.includes("whats your name")) {
     const finalText =
-      "My name is Katrina. I'm a intelligent virtual assitant 1.0";
+      "My name is Katrina. I'm a intelligent virtual assitant 2.0";
     speech.text = finalText;
-  } else if (message.includes("open google")) {
+  }
+  else if (message.includes("who created you") ) {
+    const finalText =
+      "I was born when Amaresh Parida wrote my codes to create an assistant just for you.";
+    speech.text = finalText;
+  }
+  else if (message.includes("open google")) {
     window.open("https://google.com", "_blank");
     const finalText = "Opening Google";
     speech.text = finalText;
