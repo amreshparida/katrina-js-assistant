@@ -169,6 +169,7 @@
   color: #aed0d0;
   font-size: 15px;
   margin-right: 20px;
+  margin-top: 10px;
 }
 
 
@@ -232,4 +233,17 @@
     opacity: 1;
     transform: translate(0);
   }
+}
+
+.mic-container{
+      justify-content: center;
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: -36px;
+}
+
+.mic-container img{
+  border-radius: 50%;
+  width: 50px;
 }

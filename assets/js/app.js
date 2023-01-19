@@ -9,7 +9,7 @@ function speak(sentence) {
   text_speak.rate = 1;
   text_speak.pitch = 1;
   var voices = speechSynthesis.getVoices();
-  text_speak.voice = voices[3];
+  text_speak.voice = voices[55];
   window.speechSynthesis.speak(text_speak);
   text_speak.addEventListener("end", function () {
     document.getElementById("interface").src = "assets/img/katrina-2.png";
@@ -50,6 +50,7 @@ recognition2.maxAlternatives = 1;
 recognition2.continuous = true;
 
 recognition2.onresult = (event) => {
+  document.getElementById("speak-mic").src = "assets/img/pause-mic.gif";
   var current = event.resultIndex;
   var transcript = event.results[current][0].transcript;
   content.innerHTML += contentStyle("You",transcript);
@@ -69,16 +70,19 @@ function stopSpeech() {
 function startSpeech() {
   try {
     // calling it twice will throw...
+    document.getElementById("speak-mic").src = "assets/img/play-mic.gif";
     recognition2.start();
   } catch (e) {}
 }
 
 // request a LocalMediaStream
+/*
 navigator.mediaDevices
   .getUserMedia({ audio: true })
   // add our listeners
   .then((stream) => detectSilence(stream, stopSpeech, startSpeech))
   .catch((e) => log(e.message));
+*/
 
 function detectSilence(
   stream,
@@ -123,7 +127,7 @@ function speakThis(message) {
   document.getElementById("interface").src = "assets/img/katrina-2.gif";
   const speech = new SpeechSynthesisUtterance();
   var voices = speechSynthesis.getVoices();
-  speech.voice = voices[3];
+  speech.voice = voices[55];
   speech.text = "I did not understand what you said please try again";
 
   if (message.includes("how are you")) {
