@@ -7,7 +7,7 @@
   font-family: "Roboto Mono", monospace;
 }
 
-.main {
+.pre {
   min-height: 100vh;
   position: relative;
   width: 100%;
@@ -18,8 +18,138 @@
   justify-content: center;
 }
 
-.main .image-container {
+.pre .image-container {
   padding: 10px;
+}
+
+.pre .image-container .image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pre .image-container .image img {
+  width: 170px;
+  align-items: center;
+}
+
+.pre .image-container h1 {
+  color: #00bcd4;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 40px;
+}
+
+.pre .image-container p {
+  color: #324042;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main .input {
+  position: fixed;
+  display: none;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+  bottom:54px;
+  padding:10px;
+  overflow-y: scroll;
+  background: rgb(0 0 0 / 50%);
+  border-bottom: 2px solid #00bcd4;
+}
+
+.main .input-text-box {
+  position: fixed;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+  bottom:0px;
+  overflow-y: scroll;
+  background: rgb(0 0 0 / 50%);
+}
+
+
+
+.field {
+  display:flex;
+}
+
+.field>input[type=text],
+.field>button {
+  display:block;
+  font:1.2em 'Open sans';
+  outline:none;
+}
+
+.field>input[type=text] {
+  flex:1;
+  padding:0.6em;
+  border:0.2em solid #00bcd4;
+  border-left: none;
+  border-top: none;
+  outline:none;
+  background: transparent;
+  color: #fff;
+}
+
+.field>input[type=text]::placeholder {
+  color:#fff;
+  opacity: 0.6;
+}
+
+.field>button {
+  padding:0.6em 0.4em;
+  background-color: #00bcd4;
+  color: #fff;
+  border:none;
+}
+
+.field>button>img{
+  height: 25px;
+}
+
+@media only screen and (max-width: 600px) {
+  .pre .input {
+    width: 70vw;
+  }
+}
+
+.pre .input .talk {
+  background: transparent;
+  outline: none;
+  border: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.pre .input .talk i {
+  font-size: 20px;
+  color: #aed0d0;
+}
+
+.pre .input .content {
+  color: #000;
+  font-size: 15px;
+  margin-right: 20px;
+}
+
+
+.main {
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+  background: #fff;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .main .image-container .image {
@@ -30,8 +160,10 @@
 }
 
 .main .image-container .image img {
-  width: 170px;
+  width: 30%;
   align-items: center;
+  position: fixed;
+  bottom: 0;
 }
 
 .main .image-container h1 {
@@ -48,18 +180,23 @@
 }
 
 .main .input {
-  display: flex;
-  justify-content: center;
+  position: fixed;
+  display: none;
   align-items: center;
-  width: 40vw;
-  height: 50px;
-  border-radius: 20px;
-  background: rgb(202 253 255 / 50%);
+  width: 100%;
+  height: 120px;
+  bottom:54px;
+  padding:10px;
+  overflow-y: scroll;
+  background: rgb(0 0 0 / 50%);
 }
 
 @media only screen and (max-width: 600px) {
   .main .input {
-    width: 70vw;
+    width: 100%;
+  }
+  .main .image-container .image img {
+    width: 100%;
   }
 }
 
@@ -85,4 +222,81 @@
   color: #aed0d0;
   font-size: 15px;
   margin-right: 20px;
+  margin-top: 10px;
+}
+
+
+
+
+
+.write {
+  --bg-color: hsl(0, 0%, 0%);
+  --typewriterSpeed: 6s;
+  --typewriterCharacters: 19;
+}
+
+
+
+.write p {
+  font-size: clamp(1rem, 6vw + 0rem, 2rem);
+  postion: relative;
+  font-family: monospace;
+  position: relative;
+  width: max-content;
+}
+
+.write p::before,
+.write p::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.write p::before {
+  background: var(--bg-color);
+  animation: typewriter var(--typewriterSpeed)
+    steps(var(--typewriterCharacters)) 1s forwards;
+}
+
+.write p::after {
+  width: 0.125em;
+  background: #00bcd4;
+  animation: typewriter var(--typewriterSpeed)
+      steps(var(--typewriterCharacters)) 1s forwards,
+    blink 750ms steps(var(--typewriterCharacters)) infinite;
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes blink {
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.mic-container{
+      justify-content: center;
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: -36px;
+}
+
+.mic-container img{
+  border-radius: 50%;
+  width: 50px;
 }

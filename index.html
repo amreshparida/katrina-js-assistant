@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/img/favicon.png"> 
+    <link rel="shortcut icon" href="assets/img/favicon-2.png"> 
     <title>KATRINA - Virtual Assistant</title>
 
     <!---- CSS Linkage ------>
@@ -17,22 +17,57 @@
 </head>
 
 <body >
-    <section class="main">
+    <section id="pre" class="pre">
         <div class="image-container">
             <div class="image">
-                <img id="interface" src="assets/img/katrina.png" style="border-radius: 50%;" alt="image">
+                <img  src="assets/img/katrina-logo.png" style="border-radius: 50%; width:270px;" alt="image">
             </div>
+            <br/>
+            <br/>
             <h1>K A T R I N A</h1>
-            <p>I'm a Virtual Assistant. </p>
+            <h1>3.0</h1>
+            <br/>
+            <div class="write">
+                <p>I'm a Virtual Assistant. </p>
+            </div>
         </div>
-        <div class="input">
-            <button class="talk"><!--i class="fas fa-microphone-alt"></i--></button>
-            <h1 class="content"> How can I help you? </h1>
+    </section>
+
+    <section id="main" class="main">
+        <div class="image-container">
+            <div class="image">
+                <img id="interface"  src="assets/img/katrina-2.png"  alt="image">
+            </div>
+        </div>
+        
+        <div class="input" id="content-container">
+            <div class="mic-container">
+                <img id="speak-mic" onclick="startSpeech()" src="assets/img/pause-mic.gif" />
+            </div>
+            <div class="content">
+                <b style="color: #fff;">Katrina:</b> <i>How can I help you? Ask me Katrina, ... I'm always listening.</i>
+            </div>
+        </div>
+        <div class="input-text-box">
+            <div class="field" id="searchform">
+                <input type="text" id="askterm" placeholder="Ask Something" />
+                <button type="button" id="search"><img src="assets/img/email-send-icon.png" /></button>
+            </div>
         </div>
     </section>
 
     <!------- Js Linkage --------->
+    <script src="assets/js/jquery-3.6.1.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script type="text/javascript">
+        $(window).on('load',function() {
+           // Animate loader off screen
+           $("#pre").delay(7000).fadeOut("slow", function(){
+                $("#main").css("display","flex");
+                $(".input").css("display","block");
+           });
+       });
+    </script>
 </body>
 
 </html>
