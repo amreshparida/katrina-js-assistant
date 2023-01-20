@@ -1,3 +1,20 @@
+window.addEventListener("load", function() {
+  var fadeTarget = document.getElementById("pre");
+  var fadeEffect = setInterval(function () {
+      if (!fadeTarget.style.opacity) {
+          fadeTarget.style.opacity = 1;
+      }
+      if (fadeTarget.style.opacity > 0) {
+          fadeTarget.style.opacity -= 0.1;
+          document.getElementById('main').style.display = "flex";
+          document.getElementById('content-container').style.display = "block";
+      } else {
+          clearInterval(fadeEffect);
+      }
+  }, 7000);
+});
+
+
 const btn = document.querySelector(".talk");
 const content = document.querySelector(".content");
 var voices = speechSynthesis.getVoices();
@@ -246,10 +263,8 @@ function contentStyle(x, str){
 }
 
 function scrollSmoothToBottom(id){
-  const element = $(`#${id}`);
-  element.animate({
-     scrollTop: element.prop("scrollHeight")
-  }, 500);
+  const element = document.getElementById(`${id}`);
+  element.scrollTop = 500;
 }
 
 function askViaText(){
