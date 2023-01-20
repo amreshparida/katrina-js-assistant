@@ -6,12 +6,16 @@ window.addEventListener("load", function() {
       }
       if (fadeTarget.style.opacity > 0) {
           fadeTarget.style.opacity -= 0.1;
+          fadeTarget.style.display = "none";
           document.getElementById('main').style.display = "flex";
           document.getElementById('content-container').style.display = "block";
       } else {
           clearInterval(fadeEffect);
       }
   }, 7000);
+  if (!localStorage.hasOwnProperty("OPENAI_API_KEY")) {
+    localStorage.setItem("OPENAI_API_KEY", "");
+  }
 });
 
 
@@ -74,7 +78,7 @@ recognition2.onresult = (event) => {
   scrollSmoothToBottom('content-container');
   if (transcript.toLowerCase().includes(magic_word)) {
     stopSpeech();
-    speakThis(transcript.toLowerCase().replace(magic_word, ""));
+    speakThis(transcript.toLowerCase().trim().replace(magic_word, ""));
 
   }
 };
@@ -215,8 +219,25 @@ function speakThis(message) {
     window.open("tel:+916294915441", "_blank");
     const finalText = "Calling " + message.split(" ")[1];
     speech.text = finalText;
-  } else {
-      if(message == "")
+  }
+  else if (
+    message.includes("set open ai") ||
+    message.includes("set open.ai") ||
+    message.includes("set openai")  ||
+    message.includes("set chat gpt") ||
+    message.includes("set chatgpt") ||
+    message.includes("set gpt")
+  ) {
+    let promt_res = askGPT_token();
+    let finalText = "You didn't configured.";
+    if(promt_res){
+      finalText = "API token has been configured successfully.";
+    }
+    speech.text = finalText;
+  }
+  else {
+      const greetArr = ["", "hello", "hey", "hi", "hii", "hiii"];
+      if(greetArr.includes(message))
       {
         const finalText = "Hello boss";
         speech.text = finalText;
@@ -253,6 +274,8 @@ function speakThis(message) {
 
   document.getElementById("interface").src = "assets/img/katrina-2.gif";
   window.speechSynthesis.speak(speech);
+  content.innerHTML += contentStyle("Katrina", speech.text);
+  scrollSmoothToBottom('content-container');
   speech.addEventListener("end", function () {
     document.getElementById("interface").src = "assets/img/katrina-2.png";
   });
@@ -271,6 +294,7 @@ function askViaText(){
   let message = document.getElementById('askterm').value;
   document.getElementById('askterm').value = "";
   if(message != "" && message.length >0){
+    content.innerHTML += contentStyle("You",message);
     speakThis(message.toLowerCase().trim());
   }
 }
@@ -283,6 +307,24 @@ document.getElementById('askterm').onkeydown = function(e){
 };
 
 //Open.AI ChatGPT Integration 
+
+function askGPT_token() {
+  let promt_plcaHolder = localStorage.getItem("OPENAI_API_KEY");
+  if(promt_plcaHolder == "" || promt_plcaHolder.length==0){
+    promt_plcaHolder = "Enter Your API Key";
+  }
+  let token = prompt("Please enter your Open.AI - ChatGPT API Key", promt_plcaHolder);
+  if (token != null) {
+    localStorage.setItem("OPENAI_API_KEY", token);
+    return true;
+  }
+  else if(token == "Enter Your API Key"){
+    return false;
+  }
+  else{
+    return false;
+  }
+}
 
 const getChatGPTData = async (message) => {
   var data = {
@@ -299,7 +341,7 @@ const getChatGPTData = async (message) => {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer ",
+      "Authorization": "Bearer "+localStorage.getItem("OPENAI_API_KEY"),
       "Accept": "application/json"
     },
     body: JSON.stringify(data)  
@@ -311,6 +353,6 @@ const getChatGPTData = async (message) => {
   } else if (res.choices && res.choices[0].text) {
      returnValue = res.choices[0].text;
      if (returnValue == "") returnValue = "404";
-     return returnValue;
-  }       
+  }  
+  return returnValue;     
 };
