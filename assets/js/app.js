@@ -284,7 +284,7 @@ const getChatGPTData = async (message) => {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer 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",
+      "Authorization": "Bearer ",
       "Accept": "application/json"
     },
     body: JSON.stringify(data)  
